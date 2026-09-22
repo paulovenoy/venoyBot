@@ -1,13 +1,21 @@
-# 🟢 Venoy Bot 💚
+<div align="center">
 
-![Venoy Bot](./assets/images/venoy-bot.png)
+# 🤖 Venoy Bot 💚
 
-[![Versão](https://img.shields.io/badge/Vers%C3%A3o-7.9.0-brightgreen?style=for-the-badge)](https://github.com/paulovenoy/venoyBot)
-[![Node.js](https://img.shields.io/badge/Node.js-22.x-green?style=for-the-badge&logo=node.js)](https://nodejs.org)
-[![Baileys](https://img.shields.io/badge/Baileys-7.0.0--rc.9-emerald?style=for-the-badge&logo=whatsapp)](https://github.com/WhiskeySockets/Baileys)
-[![Licença](https://img.shields.io/badge/Licen%C3%A7a-GPL--3.0-darkgreen?style=for-the-badge)](./LICENSE)
+<p align="center">
+  <img src="./assets/images/venoy-bot.png" alt="Venoy Bot Preview" width="750px" style="border-radius: 12px;" />
+</p>
 
-> 🟢 **Venoy Bot** é uma plataforma modular, rápida e moderna para automação e comandos de WhatsApp baseada no ecossistema **Baileys v7**.
+[![Versão](https://img.shields.io/badge/Versão-7.9.0-10B981?style=for-the-badge&labelColor=0B0F17)](https://github.com/paulovenoy/venoyBot)
+[![Node.js](https://img.shields.io/badge/Node.js-22.x-059669?style=for-the-badge&logo=node.js&labelColor=0B0F17)](https://nodejs.org)
+[![Baileys](https://img.shields.io/badge/Baileys-7.0.0--rc.9-25D366?style=for-the-badge&logo=whatsapp&labelColor=0B0F17)](https://github.com/WhiskeySockets/Baileys)
+[![Licença](https://img.shields.io/badge/Licença-GPL--3.0-16A34A?style=for-the-badge&labelColor=0B0F17)](./LICENSE)
+
+<p align="center">
+  <b>💚 Bot multifuncional inteligente para WhatsApp com Baileys v7, automação de mídia, stickers e IA.</b>
+</p>
+
+</div>
 
 ---
 
@@ -685,6 +693,39 @@ O que você não pode fazer:
 
 Esta licença garante que todos tenham acesso ao código-fonte e podem colaborar livremente, promovendo o compartilhamento e o aprimoramento do projeto.
 
-## ⚠ Disclaimer
+## 📂 Arquitetura do Projeto
 
-Neste projeto, precisei hospedar a node_modules, para auxiliar quem está rodando o bot pelo celular, pois muitos deles podem não rodar o `npm install` pelo termux corretamente.
+```text
+venoyBot/
+├── assets/             # Imagens, stickers, áudios, temporários e mídias
+├── database/           # Persistência de dados local (JSON/Cache)
+├── diagrams/           # Diagramas de arquitetura e fluxo de eventos
+├── eggs/               # Templates e configurações para Pterodactyl Panel
+├── src/                # Código-fonte principal
+│   ├── commands/       # Módulos de comandos divididos por permissão
+│   │   ├── admin/      # Comandos de moderação de grupos
+│   │   ├── member/     # Comandos públicos (downloads, stickers, utilitários)
+│   │   └── owner/      # Comandos restritos ao proprietário
+│   ├── config.js       # Variáveis de configuração e personalização
+│   └── index.js        # Inicialização do client Baileys v7
+├── .gitignore          # Arquivos e diretórios ignorados
+└── package.json        # Metadados e dependências
+```
+
+---
+
+## ⚠ Observação sobre Dependências (Termux)
+
+Neste repositório, o diretório `node_modules` foi disponibilizado para viabilizar a execução direta em dispositivos móveis via **Termux**, contornando limitações de compilação nativa que ocorrem em determinados ambientes Android.
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença [GPL-3.0](./LICENSE). Mantenha os créditos dos autores e compartilhe melhorias sob a mesma licença.
+
+---
+
+<div align="center">
+  <sub>Desenvolvido com 💚 por <b>Paulo Venoy</b> & Comunidade Open Source</sub>
+</div>
