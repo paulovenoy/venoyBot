@@ -18,7 +18,7 @@ export function infoLog(message) {
 }
 
 export function successLog(message) {
-  console.log("\x1b[32m[VENOY BOT | SUCCESS]\x1b[0m", message);
+  console.log("\x1b[94m[VENOY BOT | SUCCESS]\x1b[0m", message);
 }
 
 export function errorLog(message) {
@@ -31,8 +31,8 @@ export function warningLog(message) {
 
 export function bannerLog() {
   console.log(`\x1b[36m░█░█░█▀▀░█▀█░█▀█░█░█░░░█▀▄░█▀█░▀█▀\x1b[0m`);
-  console.log(`░▀▄▀░█▀▀░█░█░█░█░░█░░░░█▀▄░█░█░░█░`);
+  console.log(`\x1b[34m░▀▄▀░█▀▀░█░█░█░█░░█░░░░█▀▄░█░█░░█░\x1b[0m`);
   console.log(`\x1b[36m░░▀░░▀▀▀░▀░▀░▀▀▀░░▀░░░░▀▀░░▀▀▀░░▀░\x1b[0m`);
-  console.log(`\x1b[36m🤖 VENOY BOT - Versão: \x1b[0m${pkg.version}\n`);
+  console.log(`\x1b[94m💙 VENOY BOT - Versão: \x1b[0m${pkg.version}\n`);
 }
 

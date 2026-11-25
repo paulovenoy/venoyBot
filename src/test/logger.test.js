@@ -69,12 +69,12 @@ describe("Logger Functions", () => {
   });
 
   describe("successLog", () => {
-    it("should call console.log with green color", () => {
+    it("should call console.log with bright blue color", () => {
       logger.successLog("Operação bem-sucedida");
 
       assert.strictEqual(consoleLogMock.mock.calls.length, 1);
       const args = consoleLogMock.mock.calls[0].arguments;
-      assert.strictEqual(args[0], "\x1b[32m[VENOY BOT | SUCCESS]\x1b[0m");
+      assert.strictEqual(args[0], "\x1b[94m[VENOY BOT | SUCCESS]\x1b[0m");
       assert.strictEqual(args[1], "Operação bem-sucedida");
     });
 
