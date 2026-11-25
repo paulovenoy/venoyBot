@@ -1,18 +1,18 @@
 <div align="center">
 
-# 🤖 Venoy Bot 💚
+# 🤖 Venoy Bot 💙
 
 <p align="center">
   <img src="./assets/images/venoy-bot.png" alt="Venoy Bot Preview" width="750px" style="border-radius: 12px;" />
 </p>
 
-[![Versão](https://img.shields.io/badge/Versão-7.9.0-10B981?style=for-the-badge&labelColor=0B0F17)](https://github.com/paulovenoy/venoyBot)
-[![Node.js](https://img.shields.io/badge/Node.js-22.x-059669?style=for-the-badge&logo=node.js&labelColor=0B0F17)](https://nodejs.org)
-[![Baileys](https://img.shields.io/badge/Baileys-7.0.0--rc.9-25D366?style=for-the-badge&logo=whatsapp&labelColor=0B0F17)](https://github.com/WhiskeySockets/Baileys)
-[![Licença](https://img.shields.io/badge/Licença-GPL--3.0-16A34A?style=for-the-badge&labelColor=0B0F17)](./LICENSE)
+[![Versão](https://img.shields.io/badge/Versão-7.10.0-3B82F6?style=for-the-badge&labelColor=0B0F17)](https://github.com/paulovenoy/venoyBot)
+[![Node.js](https://img.shields.io/badge/Node.js-22.x-2563EB?style=for-the-badge&logo=node.js&labelColor=0B0F17)](https://nodejs.org)
+[![Baileys](https://img.shields.io/badge/Baileys-7.0.0--rc.9-0EA5E9?style=for-the-badge&logo=whatsapp&labelColor=0B0F17)](https://github.com/WhiskeySockets/Baileys)
+[![Licença](https://img.shields.io/badge/Licença-GPL--3.0-1D4ED8?style=for-the-badge&labelColor=0B0F17)](./LICENSE)
 
 <p align="center">
-  <b>💚 Bot multifuncional inteligente para WhatsApp com Baileys v7, automação de mídia, stickers e IA.</b>
+  <b>💙 Bot multifuncional inteligente para WhatsApp com Baileys v7, automação de mídia, stickers, pacotes e IA.</b>
 </p>
 
 </div>
@@ -21,7 +21,7 @@
 
 ## 📋 Sumário
 
-- [☘️ Sobre o Projeto](#️-sobre-o-projeto)
+- [💠 Sobre o Projeto](#-sobre-o-projeto)
 - [⚡ Recursos e Destaques](#-recursos-e-destaques)
 - [📱 Instalação no Termux](#-instalação-no-termux)
 - [🖥️ Instalação em VPS (Debian/Ubuntu)](#️-instalação-em-vps-debianubuntu)
@@ -33,20 +33,21 @@
 
 ---
 
-## ☘️ Sobre o Projeto
+## 💠 Sobre o Projeto
 
 O **Venoy Bot** foi projetado com foco em arquitetura orientada a arquivos (File-Oriented Architecture), dispensando gigantescos arquivos de `switch/case`. Cada comando possui seu próprio módulo, com controle automático de permissões por diretório:
 
 - 👑 **`src/commands/owner/`** → Funcionalidades exclusivas do dono do bot.
 - 🛡️ **`src/commands/admin/`** → Gerenciamento e moderação de grupos.
-- 🟢 **`src/commands/member/`** → Comandos públicos, downloads, IA, canvas e utilitários.
+- 🔵 **`src/commands/member/`** → Comandos públicos, downloads, IA, canvas e utilitários.
 
 ---
 
 ## ⚡ Recursos e Destaques
 
-- 💚 **Menu Dinâmico & Moderno**: Exibição organizada com tema verde e indicadores em tempo real.
+- 💙 **Menu Dinâmico & Moderno**: Exibição organizada com tema azul e indicadores em tempo real.
 - 📶 **Métricas de Performance (`/ping`)**: Latência, Uptime do processo, consumo de memória RAM (MB) e versão do Node.
+- 🧩 **Figurinhas & Pacotes (`/rename`, `/pack`, `/padd`)**: Renomeação sem perda de qualidade (estáticas e animadas), criação de pacotes completos com envio em lote e exportação `.wastickers`!
 - 🤖 **Inteligência Artificial Nativa**: Suporte a modelos Google Gemini, GPT-5 Mini, geração de imagens via Flux e figurinhas com IA.
 - 📥 **Central de Downloads**: Baixe vídeos e áudios do TikTok, YouTube, Instagram, Facebook e Pinterest.
 - 🎨 **Canvas e Edição de Imagens**: Filtros de imagem em tempo real (blur, invert, gray, rip, molduras).
@@ -199,7 +200,9 @@ Obtenha sua API Key em: [https://linker.devgui.dev](https://linker.devgui.dev)
 | Ping | Membro | ❌ |
 | Play áudio | Membro | ✅ |
 | Play vídeo | Membro | ✅ |
-| Renomear figurinha | Membro | ❌ |
+| Criar e exportar pacotes de figurinhas (`/pack`, `/padd`) | Membro | ❌ |
+| Combo figurinha + áudio (`/figsom`) | Membro | ❌ |
+| Renomear figurinha (`/rename`) | Membro | ❌ |
 | Sticker | Membro | ❌ |
 | Sticker IA  | Membro | ✅ |
 | Sticker para imagem | Membro | ❌ |
@@ -727,5 +730,5 @@ Este projeto está sob a licença [GPL-3.0](./LICENSE). Mantenha os créditos do
 ---
 
 <div align="center">
-  <sub>Desenvolvido com 💚 por <b>Paulo Venoy</b> & Comunidade Open Source</sub>
+  <sub>Desenvolvido com 💙 por <b>Paulo Venoy</b> & Comunidade Open Source</sub>
 </div>

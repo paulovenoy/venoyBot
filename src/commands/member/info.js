@@ -36,8 +36,8 @@ export default {
 
       const cmd = await import(cmdFile);
 
-      const info = `🟢 *Informações do Comando* 🟢\n
-☘️ *Nome:* _${cmd.default.name}_
+      const info = `🔵 *Informações do Comando* 🔵\n
+💠 *Nome:* _${cmd.default.name}_
 📝 *Descrição:* _${cmd.default.description}_
 ⚡ *Gatilhos:* _${cmd.default.commands.join(", ")}_
 📌 *Uso:* _${cmd.default.usage}_

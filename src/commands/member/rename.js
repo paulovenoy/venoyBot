@@ -1,99 +1,120 @@
 import fs from "node:fs";
-import { PREFIX } from "../../config.js";
+import { BOT_EMOJI, BOT_NAME, PREFIX } from "../../config.js";
 import { DangerError, InvalidParameterError } from "../../errors/index.js";
 import {
-  addStickerMetadata,
-  isAnimatedSticker,
-  processAnimatedSticker,
-  processStaticSticker,
+  createSticker,
+  renameSticker,
 } from "../../services/sticker.js";
 import { getRandomName } from "../../utils/index.js";
 
+function extractEmojis(text = "") {
+  if (!text) return [];
+  const segmenter = new Intl.Segmenter("pt", { granularity: "grapheme" });
+  return [...segmenter.segment(text)]
+    .map((s) => s.segment.trim())
+    .filter((g) => g && /\p{Extended_Pictographic}/u.test(g))
+    .slice(0, 5);
+}
+
+export function parseRenameArgs(args = [], defaultAuthor = `${BOT_EMOJI} ${BOT_NAME}`) {
+  const pack = (args[0] || "").trim();
+  const author = (args[1] || defaultAuthor || "").trim();
+  const emojis = args[2] ? extractEmojis(args[2]) : [];
+
+  return { pack, author, emojis };
+}
+
 export default {
   name: "rename",
-  description: "Adiciona novos meta-dados à figurinha.",
+  description:
+    "Renomeia figurinhas (estáticas ou animadas) ou cria figurinha com pacote, autor e emojis personalizados.",
   commands: ["rename", "renomear", "rn"],
-  usage: `${PREFIX}rename pacote / autor (responda a uma figurinha)`,
-  handle: async ({
-    isSticker,
-    downloadSticker,
-    webMessage,
-    sendWaitReact,
-    sendSuccessReact,
-    sendStickerFromFile,
-    args,
-  }) => {
-    if (!isSticker) {
+  usage: `${PREFIX}rename Pacote / Autor / 💙 (responda a uma figurinha, imagem ou vídeo)`,
+  /**
+   * @param {CommandHandleProps} props
+   */
+  handle: async (paramsHandler) => {
+    const {
+      isSticker,
+      isImage,
+      isVideo,
+      downloadSticker,
+      webMessage,
+      sendWaitReact,
+      sendSuccessReact,
+      sendStickerFromFile,
+      args,
+      userLid,
+    } = paramsHandler;
+
+    if (!isSticker && !isImage && !isVideo) {
       throw new InvalidParameterError(
-        "Você precisa responder a uma figurinha!"
+        `Você precisa responder a uma figurinha (ou enviar/responder imagem ou vídeo curto)!\n\n📌 *Exemplo:* ${PREFIX}rename Meu Pacote / ${BOT_NAME}`
       );
     }
 
-    if (args.length !== 2) {
+    if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa fornecer o pacote e o autor no formato: pacote / autor"
+        `Informe pelo menos o nome do pacote!\n\n📌 *Exemplos:*\n• ${PREFIX}rename Meu Pacote / Seu Nome\n• ${PREFIX}rename Meu Pacote / Seu Nome / 💙🔥\n• ${PREFIX}rename Meu Pacote`
       );
     }
 
-    const pack = args[0];
-    const author = args[1];
+    const fallbackAuthor =
+      webMessage.pushName ||
+      webMessage.notifyName ||
+      userLid?.replace(/@lid/, "") ||
+      `${BOT_EMOJI} ${BOT_NAME}`;
 
-    if (!pack || !author) {
-      throw new InvalidParameterError(
-        "Você precisa fornecer o pacote e o autor no formato: pacote / autor"
-      );
-    }
+    const { pack, author, emojis } = parseRenameArgs(args, fallbackAuthor);
 
-    const minLength = 2;
-    const maxLength = 50;
+    const minLength = 1;
+    const maxLength = 64;
 
     if (pack.length < minLength || pack.length > maxLength) {
       throw new DangerError(
-        `O pacote deve ter entre ${minLength} e ${maxLength} caracteres.`
+        `O nome do pacote deve ter entre ${minLength} e ${maxLength} caracteres.`
       );
     }
 
     if (author.length < minLength || author.length > maxLength) {
       throw new DangerError(
-        `O autor deve ter entre ${minLength} e ${maxLength} caracteres.`
+        `O nome do autor deve ter entre ${minLength} e ${maxLength} caracteres.`
       );
     }
 
-    let finalStickerPath = null;
-
     await sendWaitReact();
 
-    const inputPath = await downloadSticker(webMessage, getRandomName("webp"));
+    if (isImage || isVideo) {
+      await createSticker({
+        ...paramsHandler,
+        customMetadata: {
+          pack,
+          author,
+          emojis: emojis.length ? emojis : [BOT_EMOJI],
+        },
+      });
+      await sendSuccessReact();
+      return;
+    }
+
+    let inputPath = null;
+    let finalStickerPath = null;
 
     try {
-      const metadata = {
-        username: pack,
-        botName: author,
-      };
+      inputPath = await downloadSticker(webMessage, getRandomName("webp"));
 
-      const isAnimated = await isAnimatedSticker(inputPath);
-
-      if (isAnimated) {
-        finalStickerPath = await processAnimatedSticker(
-          inputPath,
-          metadata,
-          addStickerMetadata
-        );
-      } else {
-        finalStickerPath = await processStaticSticker(
-          inputPath,
-          metadata,
-          addStickerMetadata
-        );
-      }
+      finalStickerPath = await renameSticker(inputPath, {
+        pack,
+        author,
+        emojis,
+      });
 
       await sendSuccessReact();
-
-      await sendStickerFromFile(finalStickerPath);
+      await sendStickerFromFile(finalStickerPath, true);
     } catch (error) {
       throw new Error(`Erro ao renomear a figurinha: ${error.message}`);
     } finally {
-      if (fs.existsSync(inputPath)) {
+      if (inputPath && fs.existsSync(inputPath)) {
         fs.unlinkSync(inputPath);
       }
 

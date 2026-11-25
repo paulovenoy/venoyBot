@@ -31,12 +31,12 @@ export default {
 
     const memoryUsage = (process.memoryUsage().rss / 1024 / 1024).toFixed(1);
 
-    await sendReply(`🟢 *Venoy Bot - Status do Sistema* 🟢
+    await sendReply(`🔵 *Venoy Bot - Status do Sistema* 🔵
 
 ${response}
 ⚡ *Latência:* ${ping}ms
 ⏱️ *Uptime:* ${h}h ${m}m ${s}s
 💻 *RAM Em Uso:* ${memoryUsage} MB
-☘️ *Node.js:* ${process.version}`);
+💠 *Node.js:* ${process.version}`);
   },
 };

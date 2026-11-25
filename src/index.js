@@ -71,10 +71,40 @@
  *
  * Não modifique nada abaixo, a não ser que saiba o que está fazendo!
  */
+import { DEVELOPER_MODE } from "./config.js";
 import { connect } from "./connection.js";
 import { load } from "./loader.js";
 import { badMacHandler } from "./utils/badMacHandler.js";
 import { bannerLog, errorLog, infoLog, warningLog } from "./utils/logger.js";
+
+if (!DEVELOPER_MODE) {
+  const LIBSIGNAL_NOISE_PREFIXES = [
+    "Closing session:",
+    "Opening session:",
+    "Removing old closed session:",
+    "Closing open session in favor of incoming prekey bundle",
+    "Session already closed",
+    "Session already open",
+    "Decrypted message with closed session.",
+  ];
+
+  const isLibsignalNoise = (firstArg) =>
+    typeof firstArg === "string" &&
+    LIBSIGNAL_NOISE_PREFIXES.some((prefix) => firstArg.startsWith(prefix));
+
+  const originalInfo = console.info.bind(console);
+  const originalWarn = console.warn.bind(console);
+
+  console.info = (...args) => {
+    if (isLibsignalNoise(args[0])) return;
+    originalInfo(...args);
+  };
+
+  console.warn = (...args) => {
+    if (isLibsignalNoise(args[0])) return;
+    originalWarn(...args);
+  };
+}
 
 process.on("uncaughtException", (error) => {
   if (badMacHandler.handleError(error, "uncaughtException")) {

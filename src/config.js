@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 export const PREFIX = "/";
 
 // Emoji do bot (mude se preferir).
-export const BOT_EMOJI = "💚";
+export const BOT_EMOJI = "💙";
 
 // Nome do bot (mude se preferir).
 export const BOT_NAME = "Venoy Bot";
